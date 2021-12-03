@@ -4,6 +4,7 @@ import subprocess
 
 if sys.platform() != "linux":
   print("[-] You need a linux system")
+  print("Windows is coming soon")
   exit()
 else:
   continue
@@ -14,8 +15,11 @@ if not site.startswith("http"):
   exit()
 else:
   continue
-out = subprocess.check_output(["ab"], ["-n"], ["1000"], ["-c"], ["10"], ["-k"], ["-H"], ['"Accept-Encoding: gzip, deflate"'], [site])
-try
+try:
+  out = subprocess.check_output(["ab"], ["-n"], ["1000"], ["-c"], ["10"], ["-k"], ["-H"], ['"Accept-Encoding: gzip, deflate"'], [site])
+except:
+  print(f"You have to install httpd-tools: 'sudo apt-geg install httpd-tools'")
+try:
   splitted1 = out.split("Requests per second:    ")
 except Exception as e:
   print(f"[-] Unknown error: {e}")
